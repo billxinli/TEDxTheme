@@ -1,0 +1,14 @@
+{
+  "passfail": false,
+  "maxerr": 100,
+  "browser": true,
+  "node": true,
+  "jquery": true,
+  "predef": [
+  ],
+  "debug": false,
+  "devel": true,
+  "strict": false,
+  "globalstrict": false,
+  "indent": 2
+}

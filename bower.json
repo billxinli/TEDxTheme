@@ -1,0 +1,20 @@
+{
+  "name": "TEDxTheme",
+  "version": "1.0.0",
+  "homepage": "https://github.com/billxinli/TEDxTheme",
+  "authors": [
+    "Emerson Lackey",
+    "Bill Li <me@billxinli.com>"
+  ],
+  "description": "TEDx Theme designed by Jet Cooper, built by TWG, rebuilt by Bill Li",
+  "keywords": [
+    "Wordpress"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "normalize-css": "~3.0.1",
+    "bootstrap": "~3.2.0",
+    "font-awesome": "~4.2.0"
+  }
+}
