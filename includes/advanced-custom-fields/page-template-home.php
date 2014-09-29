@@ -1,0 +1,88 @@
+<?php
+if (function_exists("register_field_group")) {
+  register_field_group(array(
+    'id'         => 'acf_home',
+    'title'      => 'Home',
+    'fields'     => array(
+      array(
+        'key'           => 'field_54286fbc5c43f',
+        'label'         => 'Banner Title',
+        'name'          => 'banner_title',
+        'type'          => 'text',
+        'default_value' => '',
+        'placeholder'   => '',
+        'prepend'       => '',
+        'append'        => '',
+        'formatting'    => 'none',
+        'maxlength'     => '',
+      ),
+      array(
+        'key'           => 'field_54286fea5c440',
+        'label'         => 'Banner Subtitle',
+        'name'          => 'banner_subtitle',
+        'type'          => 'text',
+        'default_value' => '',
+        'placeholder'   => '',
+        'prepend'       => '',
+        'append'        => '',
+        'formatting'    => 'none',
+        'maxlength'     => '',
+      ),
+      array(
+        'key'           => 'field_542870206dd36',
+        'label'         => 'Banner Call Out Button Text',
+        'name'          => 'banner_call_out_button_text',
+        'type'          => 'text',
+        'instructions'  => 'Text for banner call out button',
+        'default_value' => '',
+        'placeholder'   => '',
+        'prepend'       => '',
+        'append'        => '',
+        'formatting'    => 'none',
+        'maxlength'     => '',
+      ),
+      array(
+        'key'           => 'field_542870316dd37',
+        'label'         => 'Banner Call Out Button Link',
+        'name'          => 'banner_call_out_button_link',
+        'type'          => 'text',
+        'instructions'  => 'The link (eg. http://google.com) where the homepage button should go',
+        'default_value' => '',
+        'placeholder'   => '',
+        'prepend'       => '',
+        'append'        => '',
+        'formatting'    => 'none',
+        'maxlength'     => '',
+      ),
+      array(
+        'key'          => 'field_542870426dd38',
+        'label'        => 'Banner Background',
+        'name'         => 'banner_background',
+        'type'         => 'image',
+        'instructions' => 'Background image for the banner.',
+        'save_format'  => 'url',
+        'preview_size' => 'full',
+        'library'      => 'all',
+      ),
+    ),
+    'location'   => array(
+      array(
+        array(
+          'param'    => 'page_template',
+          'operator' => '==',
+          'value'    => 'default',
+          'order_no' => 0,
+          'group_no' => 0,
+        ),
+      ),
+    ),
+    'options'    => array(
+      'position'       => 'acf_after_title',
+      'layout'         => 'default',
+      'hide_on_screen' => array(
+        0 => 'featured_image',
+      ),
+    ),
+    'menu_order' => 0,
+  ));
+}
