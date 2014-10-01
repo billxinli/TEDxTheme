@@ -16,6 +16,17 @@ class SetupTheme {
     add_action('init', array($this, 'setup_event_year_taxonomy'));
 
     add_action('customize_register', array($this, 'setup_customize_register'));
+
+    $sidebar_settings = [
+      'class'        => 'sidebar',
+      'before_title' => '<h4 class="widgettitle">',
+      'after_title'  => "</h4>\n"
+    ];
+    register_sidebar(array_merge($sidebar_settings, ['name' => 'Blog Sidebar', 'id' => 'blog-sidebar']));
+    register_sidebar(array_merge($sidebar_settings, ['name' => 'Page Sidebar', 'id' => 'page-sidebar']));
+    register_sidebar(array_merge($sidebar_settings, ['name' => 'Home Sidebar', 'id' => 'home-sidebar']));
+
+    register_nav_menu('primary', 'Primary Header Menu');
   }
 
   function setup_event_year_taxonomy () {
@@ -30,49 +41,60 @@ class SetupTheme {
         'show_ui'           => true,
         'hierarchical'      => true,
         'query_var'         => 'event_year'
-      )
-    );
+      ));
   }
 
   function setup_customize_register ($wp_customize) {
 
     // Section
     $wp_customize->add_section(
-      'tedx_event',
+      'tedxtheme_event',
       array(
-        'title'    => __('TEDx Event', 'tedx'),
+        'title'    => __('TEDx Event', 'tedxtheme'),
         'priority' => 2147483630
       ));
 
+
+
+
+    $wp_customize->add_section(
+      'my_theme_blog_featured_categories', array(
+        'title' => __( 'Featured Categories', 'textdomain' ),
+        'priority' => 36,
+        'args' => array(), // arguments for wp_dropdown_categories function..., optional
+      )
+    );
     $wp_customize->add_setting(
-      'promoted_talk_year',
-      array(
-        'default'   => date('Y'),
-        'transport' => 'refresh',
-      ));
+      'featured_category_1', array(
+        'default' => get_option( 'default_category', '' ),
+      )
+    );
+
     $wp_customize->add_control(
-      'tedx_event_promoted_talk_year',
-      array(
-        'priority' => 2,
-        'label'    => __('Promoted Talk Year', 'tedx'),
-        'section'  => 'tedx_event',
-        'settings' => 'promoted_talk_year',
-        'type'     => 'text'
-      ));
+      new Taxonomy_Dropdown_Custom_Control(
+        $wp_customize, 'featured_category_1', array(
+          'label' => __( 'Featured Area 1', 'textdomain' ),
+          'section' => 'my_theme_blog_featured_categories',
+          'settings' => 'featured_category_1',
+        )
+      )
+    );
+
+
 
     $wp_customize->add_setting(
-      'promoted_speaker_year',
+      'promoted_year',
       array(
         'default'   => date('Y'),
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_promoted_speaker_year',
+      'tedxtheme_event_promoted_year',
       array(
         'priority' => 2,
-        'label'    => __('Promoted Speaker Year', 'tedx'),
-        'section'  => 'tedx_event',
-        'settings' => 'promoted_speaker_year',
+        'label'    => __('Promoted Year', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
+        'settings' => 'promoted_year',
         'type'     => 'text'
       ));
 
@@ -83,8 +105,8 @@ class SetupTheme {
       new \WP_Customize_Image_Control(
         $wp_customize, 'logo', array(
         'priority' => 1,
-        'label'    => __('Logo', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Logo', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'logo',
       )));
 
@@ -95,11 +117,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_logo_link',
+      'tedxtheme_event_logo_link',
       array(
         'priority' => 2,
-        'label'    => __('Logo Link', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Logo Link', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'logo_link',
         'type'     => 'text'
       ));
@@ -112,11 +134,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_event_name',
+      'tedxtheme_event_event_name',
       array(
         'priority' => 3,
-        'label'    => __('Event Name', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Event Name', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'event_name',
         'type'     => 'text'
       ));
@@ -128,11 +150,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_event_date',
+      'tedxtheme_event_event_date',
       array(
         'priority' => 4,
-        'label'    => __('Event Date', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Event Date', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'event_date',
         'type'     => 'text'
       ));
@@ -144,11 +166,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_event_location',
+      'tedxtheme_event_event_location',
       array(
         'priority' => 5,
-        'label'    => __('Event Location', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Event Location', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'event_location',
         'type'     => 'text'
       ));
@@ -160,11 +182,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_header_call_out',
+      'tedxtheme_event_header_call_out',
       array(
         'priority' => 6,
-        'label'    => __('Header Call Out', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Header Call Out', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'header_call_out',
         'type'     => 'text'
       ));
@@ -176,11 +198,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_button_call_out_text',
+      'tedxtheme_event_button_call_out_text',
       array(
         'priority' => 7,
-        'label'    => __('Button Call Out Text', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Button Call Out Text', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'button_call_out_text',
         'type'     => 'text'
       ));
@@ -192,20 +214,20 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_event_button_call_out_link',
+      'tedxtheme_event_button_call_out_link',
       array(
         'priority' => 8,
-        'label'    => __('Button Call Out Link', 'tedx'),
-        'section'  => 'tedx_event',
+        'label'    => __('Button Call Out Link', 'tedxtheme'),
+        'section'  => 'tedxtheme_event',
         'settings' => 'button_call_out_link',
         'type'     => 'text'
       ));
 
     // Section
     $wp_customize->add_section(
-      'tedx_social',
+      'tedxtheme_social',
       array(
-        'title'    => __('TEDx Social', 'tedx'),
+        'title'    => __('TEDx Social', 'tedxtheme'),
         'priority' => 2147483631
       ));
 
@@ -217,11 +239,11 @@ class SetupTheme {
       ));
 
     $wp_customize->add_control(
-      'tedx_social_twitter_follow_button',
+      'tedxtheme_social_twitter_follow_button',
       array(
         'priority' => 8,
-        'label'    => __('Twitter Follow Button', 'tedx'),
-        'section'  => 'tedx_social',
+        'label'    => __('Twitter Follow Button', 'tedxtheme'),
+        'section'  => 'tedxtheme_social',
         'settings' => 'twitter_follow_button',
         'type'     => 'text'
       ));
@@ -234,11 +256,11 @@ class SetupTheme {
         'transport' => 'refresh',
       ));
     $wp_customize->add_control(
-      'tedx_social_twitter_account',
+      'tedxtheme_social_twitter_account',
       array(
         'priority' => 7,
-        'label'    => __('Twitter Account', 'tedx'),
-        'section'  => 'tedx_social',
+        'label'    => __('Twitter Account', 'tedxtheme'),
+        'section'  => 'tedxtheme_social',
         'settings' => 'twitter_account',
         'type'     => 'text'
       ));

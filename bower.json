@@ -14,6 +14,7 @@
   "private": true,
   "dependencies": {
     "normalize-css": "~3.0.1",
+    "bootstrap-sass-official": "~3.2.0",
     "bootstrap": "~3.2.0",
     "font-awesome": "~4.2.0"
   }

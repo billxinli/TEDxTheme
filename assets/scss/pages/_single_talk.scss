@@ -1,0 +1,21 @@
+body.single-talk {
+  .red {
+    color: $red;
+  }
+
+  .light-gray {
+    color: $light-gray
+  }
+
+  .container {
+    padding-top: 30px;
+  }
+
+  .page-header {
+    h1 {
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
+
+}
