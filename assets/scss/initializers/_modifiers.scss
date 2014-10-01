@@ -1,3 +1,15 @@
+.red {
+  color: $red;
+}
+
+.light-gray {
+  color: $light-gray
+}
+
+.dark-gray {
+  color: $dark-gray
+}
+
 ul.inline {
   margin: 0;
   padding: 0;
@@ -13,14 +25,7 @@ ul.inline {
   text-transform: uppercase;
 }
 
-.spacing-top {
-  margin-top: 40px;
-}
-
-.table-cell {
-  display: table-cell;
-}
-
-.table {
-  display: table;
+.event-years {
+  font-size: 10px;
+  padding: 20px !important;
 }

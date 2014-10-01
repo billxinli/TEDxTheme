@@ -5,7 +5,13 @@ Template Name: One column (Default)
 ?>
 
 <?php get_header(); ?>
-<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-  <?php the_content(); ?>
-<?php endwhile; endif; ?>
+
+<div class="container contents spacing-top">
+  <section>
+    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+      <?php the_content(); ?>
+    <?php endwhile; endif; ?>
+  </section>
+</div>
+
 <?php get_footer(); ?>
